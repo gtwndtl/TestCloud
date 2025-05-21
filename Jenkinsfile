@@ -1,40 +1,24 @@
 pipeline {
     agent any
 
-    environment {
-        GIT_REPO = 'https://github.com/DukeNicasio/cloud_final.git'
-        COMPOSE_FILE = 'docker-compose.yml'
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                git url: "${GIT_REPO}", branch: 'main'
+                // ระบุ branch ให้ชัดเจน
+                git branch: 'main', url: 'https://github.com/gtwndtl/TestCloud.git'
             }
         }
 
-        stage('Shutdown Existing Containers') {
+        stage('Build Docker Images') {
             steps {
-                sh "docker-compose -f ${COMPOSE_FILE} down"
+                sh 'docker-compose build'
             }
         }
 
-        stage('Build Services') {
+        stage('Deploy') {
             steps {
-                sh "docker-compose -f ${COMPOSE_FILE} build"
+                sh 'docker-compose up -d'
             }
-        }
-
-        stage('Restart Services') {
-            steps {
-                sh "docker-compose -f ${COMPOSE_FILE} up -d"
-            }
-        }
-    }
-
-    post {
-        always {
-            echo 'Pipeline finished.'
         }
     }
 }
