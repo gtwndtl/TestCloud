@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Card, Col, Row, message, Button } from "antd";
-import { GetCandidates } from "../../services/https"; // สมมติว่ามีฟังก์ชันนี้
-import { Link, useNavigate } from "react-router-dom";
+import { Card, Col, Row, message } from "antd";
+import { GetCandidates } from "../../services/https";
+import { useNavigate } from "react-router-dom";
+import './index.css'; // เพิ่มบรรทัดนี้
 
 interface Candidate {
-  ID?: number;    // ตัวใหญ่ตาม json
+  ID?: number;
   name?: string;
 }
 
@@ -27,24 +28,23 @@ function Candidates() {
   }, []);
 
   return (
-    <>
+    <div className="page-container">
       {contextHolder}
 
-      <Row justify="space-between" align="middle" style={{ marginBottom: 16 }}>
+      <Row justify="space-between" align="middle">
         <Col>
-          <h2>รายชื่อผู้สมัคร</h2>
+          <h2 className="page-title">รายชื่อผู้สมัคร</h2>
         </Col>
       </Row>
 
-      <Row gutter={[16, 16]}>
+      <Row gutter={[16, 16]} className="card-container">
         {candidates.map((candidate) => (
           <Col xs={24} sm={12} md={8} lg={6} key={candidate.ID}>
-            <Card title={candidate.name} bordered={true}>
-            </Card>
+            <Card title={candidate.name} bordered={true} />
           </Col>
         ))}
       </Row>
-    </>
+    </div>
   );
 }
 
