@@ -24,7 +24,6 @@ function VotePage() {
     const res = await GetElectionById(electionId);
     if (res.status === 200) {
       setElection(res.data);
-      setTimeout(() => navigate("/election"), 2000);
     } else {
       messageApi.error("ไม่สามารถโหลดข้อมูลการเลือกตั้ง");
     }
@@ -58,6 +57,7 @@ function VotePage() {
 
         if (res.status === 201) {
           messageApi.success("โหวตสำเร็จ");
+          navigate("/elections");
         } else {
           messageApi.error(res.data?.error || "เกิดข้อผิดพลาดในการโหวต");
         }
