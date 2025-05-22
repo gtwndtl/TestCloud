@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { GetCandidates, GetElectionById, CreateVote } from "../../services/https";
 import { CandidateInterface } from "../../interfaces/ICandidate";
 import { ElectionInterface } from "../../interfaces/IElection";
+import "./index.css"
 
 function VotePage() {
   const navigate = useNavigate();
@@ -68,20 +69,30 @@ function VotePage() {
   return (
     <>
       {contextHolder}
-      <h2>{election?.title || "กำลังโหลด..."}</h2>
-      <p>{election?.description}</p>
+      <div className="vote-page-container">
+        <h2 className="vote-title">{election?.title || "กำลังโหลด..."}</h2>
+        <p className="vote-description">{election?.description}</p>
 
-      <Row gutter={[16, 16]}>
-        {candidates.map((candidate) => (
-          <Col key={candidate.ID} xs={24} sm={12} md={8}>
-            <Card title={`${candidate.name}`}>
-              <Button type="primary" onClick={() => confirmVote(candidate)}>
-                โหวต
-              </Button>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+        <Row gutter={[16, 16]}>
+          {candidates.map((candidate) => (
+            <Col key={candidate.ID} xs={24} sm={12} md={8}>
+              <Card
+                title={`${candidate.name}`}
+                className="vote-card"
+                headStyle={{ textAlign: "center" }}
+              >
+                <Button
+                  type="primary"
+                  className="vote-button"
+                  onClick={() => confirmVote(candidate)}
+                >
+                  โหวต
+                </Button>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </div>
     </>
   );
 }
