@@ -7,6 +7,8 @@ import { GetElections, GetVotes } from "../../services/https";
 import { ElectionInterface } from "../../interfaces/IElection";
 import { VoteInterface } from "../../interfaces/IVote";
 
+import "./index.css"; // เพิ่มบรรทัดนี้
+
 function Elections() {
   const [elections, setElections] = useState<ElectionInterface[]>([]);
   const [votes, setVotes] = useState<VoteInterface[]>([]);
@@ -65,10 +67,10 @@ function Elections() {
   };
 
   return (
-    <>
+    <div className="page-container">
       {contextHolder}
-      <h2 style={{ marginBottom: 24 }}>รายการเลือกตั้ง</h2>
-      <Row gutter={[16, 16]}>
+      <h2 className="page-title">รายการเลือกตั้ง</h2>
+      <Row gutter={[16, 16]} className="card-wrapper">
         {elections.map((election) => {
           const hasVoted = votedElectionIds.includes(election.ID);
           const leader = getLeadingCandidate(election.ID);
@@ -80,24 +82,22 @@ function Elections() {
                 bordered
                 style={{
                   backgroundColor: hasVoted ? "#f5f5f5" : "#ffffff",
-                  borderColor: hasVoted ? "#d9d9d9" : "#1890ff",
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)"
+                  borderColor: hasVoted ? "#d9d9d9" : "#1890ff"
                 }}
                 headStyle={{
                   backgroundColor: hasVoted ? "#d9d9d9" : "#1890ff",
-                  color: "#fff",
-                  fontWeight: "bold"
+                  color: "#fff"
                 }}
                 extra={<span style={{ color: "#fff" }}>{election.status}</span>}
               >
-                <p style={{ marginBottom: 8 }}>{election.description}</p>
-                <p style={{ fontSize: 13, color: "#555" }}>
+                <p>{election.description}</p>
+                <p className="vote-info">
                   เริ่ม: {dayjs(election.start_time).format("DD/MM/YYYY HH:mm")}<br />
                   สิ้นสุด: {dayjs(election.end_time).format("DD/MM/YYYY HH:mm")}
                 </p>
 
                 {leader && (
-                  <p style={{ marginTop: 12, color: "#1890ff", fontWeight: "bold" }}>
+                  <p className="leader-info">
                     ผู้นำ: หมายเลข {leader.candidateId} ({leader.count} คะแนน)
                   </p>
                 )}
@@ -116,7 +116,7 @@ function Elections() {
           );
         })}
       </Row>
-    </>
+    </div>
   );
 }
 
