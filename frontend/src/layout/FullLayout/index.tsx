@@ -239,7 +239,7 @@ const FullLayout: React.FC = () => {
 
         <Footer style={{ textAlign: "center" }}>
 
-          System Analysis and Design 1/67
+          Vote Online System ©2025 Created by MaiBogV2
 
         </Footer>
 
