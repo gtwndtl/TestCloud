@@ -57,7 +57,7 @@ function VotePage() {
 
         if (res.status === 201) {
           messageApi.success("โหวตสำเร็จ");
-          navigate("/elections");
+          navigate("/election");
         } else {
           messageApi.error(res.data?.error || "เกิดข้อผิดพลาดในการโหวต");
         }
